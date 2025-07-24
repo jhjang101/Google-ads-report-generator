@@ -32,3 +32,4 @@ The generated CSV files, including mapped geographical locations and specified d
 
 - Create CSV files with headers if no files found.
 - Get list of geotargets using API.
+- Web interface.
