@@ -22,7 +22,7 @@ def calc_date_range(start_date_str: str | None = None, end_date_str: str | None 
             # Check the provided date range
             print(f"\tQuery using provided date range: {start_date_str} - {end_date_str}.")
         else:
-            # Error: enddate is earlier than startdate.
+            # Error: end date is earlier than start date.
             raise ValueError("start_date_str must be earlier than end_date_str.")
     elif start_date_str or end_date_str:
         # Error: Only one date provided
@@ -52,14 +52,20 @@ def add_date_range(df: pd.DataFrame, start_date_str: str, end_date_str: str) -> 
     df["Report_End"] = end_date
     df["Report_Date_Range"] = report_date_range
 
-    print("\tSuccefully updated date range to the DataFrame.")
+    print("\tSuccessfully updated date range to the DataFrame.")
     return df
 
 
 def update_csv(df: pd.DataFrame, save_file_path: str):
-    # TODO: if no file, make one with header.
-    df.to_csv(save_file_path, mode="a",header=False, index=False, encoding="utf-8-sig")
-    print(f"\tSuccefully appended the DataFrame to '{save_file_path}'.")
+    if os.path.exists(save_file_path):
+        # if file exist, append the data without header
+        df.to_csv(save_file_path, mode="a",header=False, index=False, encoding="utf-8-sig")
+        print(f"\tSuccessfully appended the DataFrame to '{save_file_path}'.")
+    else:
+        # if no file exist, create file and save the data with header
+        df.to_csv(save_file_path, mode="a",header=True, index=False, encoding="utf-8-sig")
+        print(f"\tSuccessfully created '{save_file_path}' from the DataFrame.")
+    
 
 
 def geo_reference(geotarget_file: str) -> dict:
@@ -73,7 +79,7 @@ def geo_reference(geotarget_file: str) -> dict:
     # Create lookup dict
     lookup = geo_reference.set_index("Criteria ID")["Name"].to_dict()
 
-    print("\tSuccefully built geo_reference lookup dict.")
+    print("\tSuccessfully built geo_reference lookup dict.")
     return lookup
 
 
@@ -86,7 +92,7 @@ def map_location(df: pd.DataFrame, lookup: dict) -> pd.DataFrame:
     df["State"] = df["State"].map(lookup)
     df["Location"] = df["Location"].map(lookup)
 
-    print("\tSuccefully updated geo_location on the DataFrame.")
+    print("\tSuccessfully updated geo_location on the DataFrame.")
     return df
 
 

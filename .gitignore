@@ -2,3 +2,5 @@
 google-ads.yaml
 Data/
 temp.py
+.vscode/
+__pycache__/
