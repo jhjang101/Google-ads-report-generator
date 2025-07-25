@@ -15,29 +15,28 @@ def build_campaign_name_clause(campaign_name: str | None = None):
     return campaign_name_clause 
 
 
-def calc_date_range(start_date_str: str | None = None, end_date_str: str | None = None, ) -> tuple[str, str]:
-    if start_date_str and end_date_str:
+def calc_date_range(start_date_str: str | None = None) -> tuple[str, str]:
+    if start_date_str:
         # Query using user provided dates
-        if datetime.datetime.strptime(start_date_str, "%Y-%m-%d") <= datetime.datetime.strptime(end_date_str, "%Y-%m-%d"):
-            # Check the provided date range
-            print(f"\tQuery using provided date range: {start_date_str} - {end_date_str}.")
-        else:
-            # Error: end date is earlier than start date.
-            raise ValueError("start_date_str must be earlier than end_date_str.")
-    elif start_date_str or end_date_str:
-        # Error: Only one date provided
-        raise NameError("start_date_str or end_date_str parameter is missing.")
+        start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
+        end_date = start_date + datetime.timedelta(days=6)
+        end_date_str = end_date.strftime("%Y-%m-%d")
+        print(f"\tQuery using provided date range: {start_date_str} - {end_date_str}.")
     else:
         # Query using default dates (last SUN to SAT)
         today = datetime.date.today()
-        # Assuming the report is run on a Monday to Sunday for the previous Sun-Sat.
-        days_to_subtract = (today.weekday() + 1) % 7 + 1
-        end_date = today - datetime.timedelta(days=days_to_subtract)
-        # The previous Sunday is 6 days before the previous Saturday.
-        start_date = end_date - datetime.timedelta(days=6)
+        # Assuming the report is starting on Sunday of previous week.
+        days_to_subtract = (today.weekday() + 1) % 7 + 7
+        start_date = today - datetime.timedelta(days=days_to_subtract)
+        # The default report is ending on Saturday of previous week.
+        end_date = start_date + datetime.timedelta(days=6)
         start_date_str = start_date.strftime("%Y-%m-%d")
         end_date_str = end_date.strftime("%Y-%m-%d")
         print(f"\tQuery using default calculated date range: {start_date_str} - {end_date_str}.")
+        
+    if start_date.strftime("%A") != "Sunday":
+        # Check the provided date range
+        raise ValueError("start_date_str must be Sunday.")
 
     return start_date_str, end_date_str
 

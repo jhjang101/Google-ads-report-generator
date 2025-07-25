@@ -15,7 +15,6 @@ def process_report(client: GoogleAdsClient,
                    query_type : str, 
                    campaign_name: str | None = None,
                    start_date_str: str | None = None, # YYYY-MM-DD
-                   end_date_str: str | None = None, # YYYY-MM-DD
                    ) -> None:
     save_file_path = f"Data/Report_{query_type}.csv"
 
@@ -25,7 +24,7 @@ def process_report(client: GoogleAdsClient,
     campaign_name_clause = util.build_campaign_name_clause(campaign_name)
 
     # Calculate start_date_str and end_date_str if needed
-    start_date_str, end_date_str = util.calc_date_range(start_date_str, end_date_str)
+    start_date_str, end_date_str = util.calc_date_range(start_date_str)
 
     # Fetch data from Google Ads 
     fetch_function = query.select_query(query_type)
@@ -65,7 +64,6 @@ def main():
 
     # Dates for specific range; commented out to use default in calc_date_range for now
     # start_date_str = "2025-07-06"
-    # end_date_str = "2025-07-12"
 
     for query_type in query_types:
         process_report(client = client,
@@ -75,7 +73,6 @@ def main():
                        campaign_name = campaign_name,
                        # If you want to use specific dates, uncomment these:
                        # start_date_str = start_date_str,
-                       # end_date_str = end_date_str
                        )
     print("All reports generation process completed.")
 
