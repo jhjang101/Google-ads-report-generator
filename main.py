@@ -62,7 +62,7 @@ def main():
     query_types = ["Ads", "Keywords", "Impressions_and_clicks", "Conversions"]
     campaign_name = str(os.getenv("CAMPAIGN_NAME"))
 
-    # Dates for specific range; commented out to use default in calc_date_range for now
+    # Dates for specific week, Must be Sunday; commented out to use default in calc_date_range for now
     # start_date_str = "2025-07-06"
 
     for query_type in query_types:
@@ -71,7 +71,7 @@ def main():
                        geotarget_file = geotarget_file, 
                        query_type = query_type,
                        campaign_name = campaign_name,
-                       # If you want to use specific dates, uncomment these:
+                       # If you want to use specific week, uncomment these:
                        # start_date_str = start_date_str,
                        )
     print("All reports generation process completed.")
