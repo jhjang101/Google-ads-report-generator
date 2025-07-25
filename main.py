@@ -28,8 +28,8 @@ def process_report(client: GoogleAdsClient,
     start_date_str, end_date_str = util.calc_date_range(start_date_str, end_date_str)
 
     # Fetch data from Google Ads 
-    fecth_function = query.select_query(query_type)
-    df: pd.DataFrame = fecth_function(client, customer_id, campaign_name_clause, start_date_str, end_date_str)
+    fetch_function = query.select_query(query_type)
+    df: pd.DataFrame = fetch_function(client, customer_id, campaign_name_clause, start_date_str, end_date_str)
     if df.empty:
         print(f"No data found for {query_type}. CSV not created.")
     else:
