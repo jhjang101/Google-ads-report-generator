@@ -67,7 +67,7 @@ def get_ads(
     # Check number of rows in fetched data.
     num_row = df.shape[0]
     if num_row:
-        print(f"\tSuccefully received {num_row} rows of data from Google Ads.")
+        print(f"\tSuccessfully received {num_row} rows of data from Google Ads.")
 
     return df
 
@@ -120,7 +120,7 @@ def get_keywords(client: GoogleAdsClient,
     # Check number of rows in fetched data.
     num_row = df.shape[0]
     if num_row:
-        print(f"\tSuccefully received {num_row} rows of data from Google Ads.")
+        print(f"\tSuccessfully received {num_row} rows of data from Google Ads.")
 
     return df
 
@@ -167,7 +167,7 @@ def get_impressions_clicks(client: GoogleAdsClient,
     # Check number of rows in fetched data.
     num_row = df.shape[0]
     if num_row:
-        print(f"\tSuccefully received {num_row} rows of data from Google Ads.")
+        print(f"\tSuccessfully received {num_row} rows of data from Google Ads.")
     
     return df
 
@@ -213,7 +213,7 @@ def get_conversions(client: GoogleAdsClient,
     # Check number of rows in fetched data.
     num_row = df.shape[0]
     if num_row:
-        print(f"\tSuccefully received {num_row} rows of data from Google Ads.")
+        print(f"\tSuccessfully received {num_row} rows of data from Google Ads.")
 
     return df
 
